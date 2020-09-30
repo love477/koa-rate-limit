@@ -1,0 +1,34 @@
+{
+  "name": "koa-rate-limit",
+  "version": "1.0.0",
+  "description": "koa rate limit middleware base on @aftership/rate-limiter",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm run test",
+    "build": "tsc"
+  },
+  "keywords": [
+    "koa",
+    "middleware",
+    "rate-limit"
+  ],
+  "author": "dingyuanwu",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "maintainers": ["dingyuan.wdy@gmail.com"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "eslint": "^7.10.0",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3",
+    "@types/koa": "^2.11.4"
+  },
+  "dependencies": {}
+}
