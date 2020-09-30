@@ -37,7 +37,7 @@ const limitConfig: IConfig = {
         duration: 10,
     },
 };
-WindowRateLimiter.init(new Redis(), limiterConfig);
+WindowRateLimiter.init(new Redis(), limiterConfig, 'prefix');
 
 app.use(WindowRateLimiter.limiter);
 
@@ -56,13 +56,40 @@ app.listen(3000);
 ```
 
 ### 使用示例说明
-关于Redis和ioredis的使用，请参考下面的文档:
-[Redis使用指南](http://www.redis.cn/)
-[ioredis使用指南](https://github.com/luin/ioredis#readme)
+关于Redis和ioredis的使用，请参考下面的文档:  
+[Redis使用指南](http://www.redis.cn/)  
+[ioredis使用指南](https://github.com/luin/ioredis#readme)  
 
-关于koa中间件的使用，请参考下面的文档：
+关于koa中间件的使用，请参考下面的文档：  
 [koa中间件机制详解](https://cnodejs.org/topic/58fd8ec7523b9d0956dad945)
 
+**关于配置文件的说明**
+中间件使用的配置文件通常是下面的格式：
+```ts
+const limitConfig: IConfig = {
+    default: {
+        limit: 10,
+        duration: 10,
+    },
+    _hello: {
+        limit: 3,
+        duration: 10,
+    },
+};
+```
+本中间件是对接口进行限流，使用接口的path作为限流的key，若提供了prefix，则key为：prefix_key：
+```
+this.key = prefix ? `${prefix}${key}` : key;
+```
+这里的key的生成方式如下：
+```
+// 替换path中的'/'为'_'
+const key = path.replace(/\//g, '_');
+```
+限流的规则如下：
+1. 根据接口的path计算出key
+2. 查找与key最匹配的限流配置，遵循最佳匹配原则
+3. 若没有与key最匹配的限流配置，则检查默认配置
 
 ## 支持功能
 功能：

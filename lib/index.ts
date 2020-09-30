@@ -20,7 +20,7 @@ export class WindowRateLimiter {
   static config: IConfig;
   static limiters: ILimiters = {};
 
-  static init(redisClient: any, config: IConfig): void {
+  static init(redisClient: any, config: IConfig, prefix?: string): void {
     WindowRateLimiter.redisClient = redisClient;
     WindowRateLimiter.config = config;
     for (const key in config) {
@@ -29,6 +29,7 @@ export class WindowRateLimiter {
         key,
         limit: config[key].limit,
         duration: config[key].duration,
+        prefix,
       });
       WindowRateLimiter.limiters[key] = limiter;
     }
@@ -40,7 +41,7 @@ export class WindowRateLimiter {
     let keyLength = 0;
     let limiter = WindowRateLimiter.limiters[DEFAULT_LIMITER] ? WindowRateLimiter.limiters[DEFAULT_LIMITER] : null;
     for (const key in WindowRateLimiter.limiters) {
-      // 遵循路由最佳匹配原则
+      // 遵循最佳匹配原则
       if (apiKey.startsWith(key) && (key.length >= keyLength)) {
         limiter = WindowRateLimiter.limiters[key];
         keyLength = key.length;

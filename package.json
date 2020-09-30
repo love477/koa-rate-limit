@@ -1,5 +1,5 @@
 {
-  "name": "koa-rate-limit",
+  "name": "koa-rate-limits",
   "version": "1.0.0",
   "description": "koa rate limit middleware base on @aftership/rate-limiter",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
   "author": "dingyuanwu",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/love477/koa-rate-limit.git"
   },
   "maintainers": ["dingyuan.wdy@gmail.com"],
   "license": "MIT",
